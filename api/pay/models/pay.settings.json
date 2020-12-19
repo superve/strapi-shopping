@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pays",
+  "info": {
+    "name": "pay"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "order": {
+      "model": "order"
+    }
+  }
+}

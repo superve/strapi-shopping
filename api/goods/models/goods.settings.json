@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "goods",
+  "info": {
+    "name": "goods",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "goods_name": {
+      "type": "string"
+    },
+    "purchasing_price": {
+      "type": "float"
+    },
+    "sales_price": {
+      "type": "float"
+    },
+    "inventory": {
+      "type": "integer"
+    },
+    "sales_inventory": {
+      "type": "integer"
+    },
+    "goods_media": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "categories": {
+      "collection": "category",
+      "via": "goods",
+      "dominant": true
+    },
+    "is_sale": {
+      "type": "boolean",
+      "default": true
+    },
+    "goods_number": {
+      "type": "string"
+    },
+    "saled_at": {
+      "type": "datetime"
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": true
+    },
+    "comment_length": {
+      "type": "integer"
+    },
+    "skus": {
+      "collection": "sku",
+      "via": "goods"
+    },
+    "brand": {
+      "model": "brand"
+    },
+    "comments": {
+      "via": "goods",
+      "collection": "comment"
+    }
+  }
+}

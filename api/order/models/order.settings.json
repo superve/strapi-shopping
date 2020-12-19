@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "order",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "discount": {
+      "type": "float",
+      "default": 0
+    },
+    "package_number": {
+      "type": "string"
+    },
+    "package_company": {
+      "type": "string"
+    },
+    "free_shipping": {
+      "type": "boolean",
+      "default": true
+    },
+    "counts_map": {
+      "type": "json"
+    },
+    "all_price": {
+      "type": "float",
+      "default": 0
+    },
+    "status": {
+      "type": "integer",
+      "default": 0
+    },
+    "remark": {
+      "type": "string"
+    },
+    "pay_type": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "orders"
+    },
+    "address": {
+      "model": "address"
+    },
+    "skuses": {
+      "collection": "sku"
+    },
+    "out_trade_no": {
+      "type": "string"
+    },
+    "comments": {
+      "via": "order",
+      "collection": "comment"
+    },
+    "user_can_comment": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

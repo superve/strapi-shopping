@@ -1,0 +1,92 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/pays/alipay",
+      "handler": "pay.alipayPay",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays/alipay-query",
+      "handler": "pay.alipayQuery",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/pays/alipay-notify",
+      "handler": "pay.alipayNotify",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays/alipay-refund",
+      "handler": "pay.alipayRefund",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays/alipay-refund-query",
+      "handler": "pay.alipayRefundQuery",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays",
+      "handler": "pay.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays/count",
+      "handler": "pay.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/pays/:id",
+      "handler": "pay.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/pays",
+      "handler": "pay.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/pays/:id",
+      "handler": "pay.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/pays/:id",
+      "handler": "pay.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

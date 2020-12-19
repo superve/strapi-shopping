@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "name": "address",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "province": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "district": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "postal_code": {
+      "type": "string"
+    },
+    "user": {
+      "via": "addresses",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "name": "comment",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "content": {
+      "type": "string"
+    },
+    "comment_media": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": true
+    },
+    "level": {
+      "type": "integer",
+      "default": 1
+    },
+    "parent_comment": {
+      "model": "comment",
+      "via": "children_comments"
+    },
+    "children_comments": {
+      "collection": "comment",
+      "via": "parent_comment"
+    },
+    "goods": {
+      "model": "goods",
+      "via": "comments"
+    },
+    "order": {
+      "model": "order",
+      "via": "comments"
+    },
+    "sku": {
+      "model": "sku"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

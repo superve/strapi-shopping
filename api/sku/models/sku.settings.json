@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "skus",
+  "info": {
+    "name": "sku",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "goods": {
+      "via": "skus",
+      "model": "goods"
+    },
+    "type_1": {
+      "type": "string"
+    },
+    "type_2": {
+      "type": "string"
+    },
+    "type_3": {
+      "type": "string"
+    },
+    "price": {
+      "type": "float"
+    },
+    "inventory": {
+      "type": "integer"
+    },
+    "sales_volume": {
+      "type": "integer"
+    },
+    "type_1_name": {
+      "type": "string"
+    },
+    "type_2_name": {
+      "type": "string"
+    },
+    "type_3_name": {
+      "type": "string"
+    },
+    "sku_properties": {
+      "type": "string"
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

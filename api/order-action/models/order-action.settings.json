@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "order_actions",
+  "info": {
+    "name": "order-action",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "description": {
+      "type": "string"
+    }
+  }
+}

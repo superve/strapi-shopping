@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts",
+  "info": {
+    "name": "cart",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "users_permissions_user": {
+      "unique": true,
+      "private": true,
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "skus": {
+      "collection": "sku"
+    },
+    "counts_map": {
+      "type": "json"
+    }
+  }
+}

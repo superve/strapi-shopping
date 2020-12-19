@@ -1,0 +1,99 @@
+{
+	"routes": [
+		{
+			"method": "GET",
+			"path": "/accounts",
+			"handler": "account.find",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "GET",
+			"path": "/accounts/count",
+			"handler": "account.count",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "GET",
+			"path": "/accounts/:id",
+			"handler": "account.findOne",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "POST",
+			"path": "/accounts",
+			"handler": "account.create",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "PUT",
+			"path": "/accounts/:id",
+			"handler": "account.update",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "DELETE",
+			"path": "/accounts/:id",
+			"handler": "account.delete",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "POST",
+			"path": "/accounts/register",
+			"handler": "account.register",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "POST",
+			"path": "/accounts/login",
+			"handler": "account.login",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "POST",
+			"path": "/accounts/reset-password",
+			"handler": "account.resetPassword",
+			"config": {
+				"policies": []
+			}
+		},
+		{
+			"method": "PUT",
+			"path": "/accounts/:id",
+			"handler": "account.update",
+			"config": {
+				"policies": [],
+				"prefix": "",
+				"description": "Update an existing user",
+				"tag": {
+					"plugin": "users-permissions",
+					"name": "User",
+					"actionType": "update"
+				}
+			}
+		},
+		{
+			"method": "POST",
+			"path": "/accounts/check-login",
+			"handler": "account.checkLogin",
+			"config": {
+				"policies": []
+			}
+		}
+	]
+}
