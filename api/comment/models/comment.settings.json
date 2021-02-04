@@ -46,8 +46,8 @@
       "via": "comments"
     },
     "order": {
-      "model": "order",
-      "via": "comments"
+      "via": "comments",
+      "model": "order"
     },
     "sku": {
       "model": "sku"

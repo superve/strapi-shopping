@@ -847,9 +847,6 @@
               "all_price": {
                 "type": "number"
               },
-              "status": {
-                "type": "integer"
-              },
               "remark": {
                 "type": "string"
               },
@@ -876,6 +873,9 @@
               },
               "user_can_comment": {
                 "type": "boolean"
+              },
+              "order_type": {
+                "type": "string"
               },
               "published_at": {
                 "type": "string"

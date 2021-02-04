@@ -729,6 +729,12 @@
                 "blocked": {
                   "type": "boolean"
                 },
+                "cover": {
+                  "type": "string"
+                },
+                "goods_name": {
+                  "type": "string"
+                },
                 "published_at": {
                   "type": "string"
                 },

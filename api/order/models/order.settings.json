@@ -32,10 +32,6 @@
       "type": "float",
       "default": 0
     },
-    "status": {
-      "type": "integer",
-      "default": 0
-    },
     "remark": {
       "type": "string"
     },
@@ -57,12 +53,15 @@
       "type": "string"
     },
     "comments": {
-      "via": "order",
-      "collection": "comment"
+      "collection": "comment",
+      "via": "order"
     },
     "user_can_comment": {
       "type": "boolean",
       "default": true
+    },
+    "order_type": {
+      "model": "order-types"
     }
   }
 }

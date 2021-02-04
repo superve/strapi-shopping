@@ -29,11 +29,15 @@ module.exports = {
         const goods = await strapi.services.goods.create(params);
 
         // 循环创建 skus
-        skus.forEach(async sku => {
-            sku["goods"] = goods.id;
-            await strapi.services.sku.create(sku);
-        })
-
+        if(Array.isArray(skus)) {
+            for(let sku of skus) {
+                sku["goods"] = goods.id;
+                sku["goods_name"] = goods.goods_name;
+                // sku["cover"] = goods.goods_media[0] ? goods.goods_media[0].id : "";
+                await strapi.services.sku.create(sku);
+            }
+        }
+        
         const entity = await strapi.services.goods.find({id: goods.id});
         return sanitizeEntity(entity, { model: strapi.models.goods });
     }

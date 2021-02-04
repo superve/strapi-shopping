@@ -63,8 +63,8 @@
       "type": "integer"
     },
     "skus": {
-      "collection": "sku",
-      "via": "goods"
+      "via": "goods",
+      "collection": "sku"
     },
     "brand": {
       "model": "brand"

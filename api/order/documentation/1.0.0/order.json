@@ -543,10 +543,6 @@
             "type": "number",
             "default": 0
           },
-          "status": {
-            "type": "integer",
-            "default": 0
-          },
           "remark": {
             "type": "string"
           },
@@ -697,6 +693,12 @@
               "blocked": {
                 "type": "boolean"
               },
+              "cover": {
+                "type": "string"
+              },
+              "goods_name": {
+                "type": "string"
+              },
               "published_at": {
                 "type": "string"
               },
@@ -773,6 +775,28 @@
             "type": "boolean",
             "default": true
           },
+          "order_type": {
+            "required": [
+              "id"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -802,10 +826,6 @@
             "type": "number",
             "default": 0
           },
-          "status": {
-            "type": "integer",
-            "default": 0
-          },
           "remark": {
             "type": "string"
           },
@@ -833,6 +853,9 @@
           "user_can_comment": {
             "type": "boolean",
             "default": true
+          },
+          "order_type": {
+            "type": "string"
           },
           "published_at": {
             "type": "string",

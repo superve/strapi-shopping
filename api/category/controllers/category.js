@@ -16,11 +16,32 @@ module.exports = {
     async find( ctx ){
         
         const entities = await strapi.services.category.find(ctx.query);
-        return entities.map(entity => {
+        const result = entities.map(entity => {
             const category = sanitizeEntity(entity, { model: strapi.models.category })
             return _.omit(category, ["goods"]);
         });
 
+        async function loop(children){
+            if(children && Array.isArray(children)) {
+                //for(let i = 0, item; item = children[i++];) {
+                for(let item of children){
+                    const id = item.id;
+                    const current = await strapi.services.category.findOne({id}); // blocked: true
+
+                    item.children_categories = current.children_categories || [];
+                    await loop(item.children_categories)
+                }
+            }   
+        }
+
+        if(result && Array.isArray(result)) {
+            for(let item of result){
+                await loop(item.children_categories);
+            }
+        }
+
+        return result;
+        
         // const knex = strapi.connections.default;
         // const result = await knex('categories as a')
         //     .join('categories as b', function(){

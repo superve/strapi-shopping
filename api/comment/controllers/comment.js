@@ -15,6 +15,8 @@ module.exports = {
      *              1.订单必须存在， sku必须存在，新增一级评论前当前订单必须无评论
      *              2.类型：普通、追加 | 管理员回复
      *              3.管理员评论发送通知邮件，邮箱必须通过验证的
+     *              注意：一份订单可能有多个SKU，所以发布评论是针对多个SKU循环创建多个的，
+     *                  但是管理再回复时是针对单个商品 SKU回复，针对订单评论，商品回复
      * @param   order<Number>
      * @param   sku<Number>
      * @param   content<String>
@@ -24,7 +26,7 @@ module.exports = {
     async create(ctx) {
         const params = ctx.request.body;
         const user = ctx.state.user;
-        const saveData = {...params, user};
+        const result = [];
 
         if(!params.content && !params.comment_media) {
             ctx.badRequest(
@@ -50,35 +52,43 @@ module.exports = {
                 })
             )
         }
+        
+        // 最终发布的数据
+        const saveData = {...params, user};
 
-        // 查找sku
-        const sku = await strapi.services.sku.findOne({ id: params.sku });
-        if(!sku) {
-            ctx.badRequest(
-                null,
-                formatError({
-                    id: "Comment.form.error.create",
-                    message: "sku id is invalid."
-                })
-            )
-        }
-        saveData.goods = sku.goods;
+        if( !params.parent_comment ) {
+            // 查找sku, 如果一份订单有多个sku，需要循环创建多次
+            for(let i = 0, item; item = order.skuses[i++];) {
+                const sku = await strapi.services.sku.findOne({ id: item.id });
+                if(!sku) {
+                    ctx.badRequest(
+                        null,
+                        formatError({
+                            id: "Comment.form.error.create",
+                            message: "sku id is invalid."
+                        })
+                    )
+                }
+                saveData.sku = sku;
+                saveData.goods = sku.goods;
 
-        // 新增一级评论前当前订单必须无评论
-        if(order.comments && order.comments.length > 0 && !params.parent_comment) {
-            ctx.badRequest(
-                null,
-                formatError({
-                    id: "Comment.form.error.create",
-                    message: "order aleady comment."
-                })
-            )
-        }      
+                // 新增一级评论前当前订单必须无评论
+                if(order.comments && order.comments.length > 0 && !params.parent_comment) {
+                    ctx.badRequest(
+                        null,
+                        formatError({
+                            id: "Comment.form.error.create",
+                            message: "order aleady comment."
+                        })
+                    )
+                }      
 
-        // 二级评论
-        let parentComment;
-        if(params.parent_comment) {
-            parentComment = await strapi.services.comment.findOne({ 
+                const entity = await strapi.services.comment.create(saveData);
+                result.push(sanitizeEntity(entity, { model: strapi.models.comment }));
+            } 
+        } else {
+            // 二级评论, 针对单条SKU回复，
+            let parentComment = await strapi.services.comment.findOne({ 
                 id: params.parent_comment 
             });
             if(!parentComment || parentComment.level !== 1){
@@ -91,17 +101,32 @@ module.exports = {
                 )
             }
             saveData.level = 2;
-        }
 
-        const entity = await strapi.services.comment.create(saveData);
-        // 修改父评论
-        if(parentComment){
+            //  针对单条SKU回复，
+            const sku = await strapi.services.sku.findOne({ id: params.sku });
+            if(!sku) {
+                ctx.badRequest(
+                    null,
+                    formatError({
+                        id: "Comment.form.error.create",
+                        message: "sku id is invalid."
+                    })
+                )
+            }
+            saveData.sku = sku;
+            saveData.goods = sku.goods;
+
+            // 修改父评论
+            const entity = await strapi.services.comment.create(saveData);
             parentComment.children_comments.push(entity.id);
             await strapi.services.comment.update(
                 { id: parentComment.id }, 
                 {children_comments: parentComment.children_comments}
             );
+           
+            result.push(sanitizeEntity(entity, { model: strapi.models.comment }));
         }
-        return sanitizeEntity(entity, { model: strapi.models.comment });
+
+        return result;
     }
 };
